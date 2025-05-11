@@ -182,3 +182,119 @@ def game_dict():
             ]
         }
     }
+
+#Code starting here
+match = game_dict() #storing game data in match (global var to access in all functions below)
+
+# Geting Name of player to use across the functions
+def get_player (name_of_player):
+    for team in match.values():
+        for player in team["players"]:
+            if player["name"] == name_of_player:
+                return player
+    return "Did NOt get PLayer"
+
+print(get_player ("Jarrett Allen"))
+
+# Geting Team Name of playerr to use across the functions 
+def get_team (name_of_team):
+    for team in match.values():
+        if team["team_name"] == name_of_team:
+            return team
+
+print(get_team ("Cleveland Cavaliers"))
+
+# num_points_per_game()
+def num_points_per_game(name_of_player) :
+    player = get_player(name_of_player)
+    if player:
+        return player["points_per_game"]
+    return "No points for game found"
+
+print(num_points_per_game ("Jarrett Allen"))
+
+# player_age()
+def player_age(name_of_player):
+    player = get_player(name_of_player)
+    if player:
+        return player["age"]
+    return "Couldnt Find Age"
+
+print(player_age("Jarrett Allen"))
+
+# team_colors()
+def team_colors(name_of_team):
+    team = get_team (name_of_team)
+    if team:
+        return team["colors"]
+    return "Team Colors Not Found"
+    
+print(team_colors("Cleveland Cavaliers"))
+
+# team_names()
+def team_names():
+    return [team["team_name"] for team in match.values()]
+
+
+print (team_names())
+
+# player_numbers()
+def player_numbers(name_of_team):
+    team = get_team (name_of_team)
+    if team:
+        numbers = []
+        for player in team["players"]:
+            numbers.append(player["number"])
+        return numbers
+    return "NUmbers not found"
+                
+print (player_numbers("Cleveland Cavaliers"))
+
+# player_stats()
+def player_stats(name_of_player):
+    player = get_player(name_of_player)
+    if player:
+        return player
+    return "Player Stats Unavailable"
+
+print(player_stats("Jarrett Allen"))
+
+# average_rebounds_by_shoe_brand()   (Nike-7,Adidas-3,Puma-1,Jordan-1)
+
+def average_rebounds_by_shoe_brand(name_of_player):
+    nike = []
+    adidas = []
+    puma = []
+    jordan = []
+
+    player = get_player(name_of_player)
+    if player:
+        brand = player["shoe_brand"]
+        rebounds = player["rebounds_per_game"]
+
+        if brand == "Nike":
+            nike.append(rebounds)
+            average_rebounds = sum(nike) / len(nike)
+            print(f"{brand}: {average_rebounds:.2f}")
+        
+        elif brand == "Adidas":
+            adidas.append(rebounds)
+            average_rebounds = sum(adidas) / len(adidas)
+            print(f"{brand}: {average_rebounds:.2f}")
+        
+        elif brand == "Puma":
+            puma.append(rebounds)
+            average_rebounds = sum(puma) / len(puma)
+            print(f"{brand}: {average_rebounds:.2f}")
+        
+        elif brand == "Jordan":
+            jordan.append(rebounds)
+            average_rebounds = sum(jordan) / len(jordan)
+            print(f"{brand}: {average_rebounds:.2f}")
+        
+        return average_rebounds
+    else:
+        return "Player Not Found"
+
+
+print(average_rebounds_by_shoe_brand("Jarrett Allen"))
